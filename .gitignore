@@ -45,3 +45,10 @@ qtcreator-*
 
 # Catkin custom files
 CATKIN_IGNORE
+# My ignore files
+devel/
+devel_isolated/
+el/
+el/isolated
+.vscode
+.ycm_extra_conf.py
