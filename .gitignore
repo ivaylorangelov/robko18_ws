@@ -52,3 +52,4 @@ el/
 el/isolated
 .vscode
 .ycm_extra_conf.py
+.catkin_workspace
