@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<robot
+  xmlns:xacro="http://ros.org/wiki/xacro">
+  <property name="M_PI" value="3.1415926535897931" />
+<!-- generic constants -->
+  <xacro:property name="M_PI" value="3.14159265359" />
+  <xacro:property name="INCH_TO_M" value="0.0254"/>
+
+  <!-- robot constants -->
+  <!-- distance between the robot origin and the base plate center along the x axis (robot forward) -->
+  <xacro:property name="BASE_PLATE_X_OFFSET" value="-3.375" /> <!-- inches -->
+
+  <!-- distance between the robot origin and the bottom of the base plate along the z axis (robot up) -->
+  <xacro:property name="BASE_PLATE_Z_OFFSET" value="8.875" /> <!-- inches -->
+  <!-- see https://secure.wikimedia.org/wikipedia/en/wiki/List_of_moment_of_inertia_tensors -->
+
+  <!-- #################### versions without origin #################### -->
+  <xacro:macro name="sphere_inertial" params="radius mass">
+    <inertial>
+      <mass value="${mass}" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="${0.4 * mass * radius * radius}" ixy="0.0" ixz="0.0"
+        iyy="${0.4 * mass * radius * radius}" iyz="0.0"
+        izz="${0.4 * mass * radius * radius}" />
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="cylinder_inertial" params="radius length mass">
+    <inertial>
+      <mass value="${mass}" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="${0.0833333 * mass * (3 * radius * radius + length * length)}" ixy="0.0" ixz="0.0"
+        iyy="${0.0833333 * mass * (3 * radius * radius + length * length)}" iyz="0.0"
+        izz="${0.5 * mass * radius * radius}" />
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="box_inertial" params="x y z mass">
+    <inertial>
+      <mass value="${mass}" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="${0.0833333 * mass * (y*y + z*z)}" ixy="0.0" ixz="0.0"
+        iyy="${0.0833333 * mass * (x*x + z*z)}" iyz="0.0"
+        izz="${0.0833333 * mass * (x*x + y*y)}" />
+    </inertial>
+  </xacro:macro>
+
+  <!-- #################### versions with origin #################### -->
+  <xacro:macro name="sphere_inertial_with_origin" params="radius mass *origin">
+    <inertial>
+      <mass value="${mass}" />
+      <insert_block name="origin" />
+      <inertia ixx="${0.4 * mass * radius * radius}" ixy="0.0" ixz="0.0"
+        iyy="${0.4 * mass * radius * radius}" iyz="0.0"
+        izz="${0.4 * mass * radius * radius}" />
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="cylinder_inertial_with_origin" params="radius length mass *origin">
+    <inertial>
+      <mass value="${mass}" />
+      <insert_block name="origin" />
+      <inertia ixx="${0.0833333 * mass * (3 * radius * radius + length * length)}" ixy="0.0" ixz="0.0"
+        iyy="${0.0833333 * mass * (3 * radius * radius + length * length)}" iyz="0.0"
+        izz="${0.5 * mass * radius * radius}" />
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="box_inertial_with_origin" params="x y z mass *origin">
+    <inertial>
+      <mass value="${mass}" />
+      <insert_block name="origin" />
+      <inertia ixx="${0.0833333 * mass * (y*y + z*z)}" ixy="0.0" ixz="0.0"
+        iyy="${0.0833333 * mass * (x*x + z*z)}" iyz="0.0"
+        izz="${0.0833333 * mass * (x*x + y*y)}" />
+    </inertial>
+  </xacro:macro>
+
+
+
+  <!-- PROPERTY LIST -->
+  <!--All units in m-kg-s-radians unit system -->
+  <property name="M_PI" value="3.1415926535897931" />
+  <property name="M_PI_2" value="1.570796327" />
+  <property name="rotate_90_degrees" value="1.570796327" />
+  <property name="DEG_TO_RAD" value="0.017453293" />
+
+  <!-- Main body radius and height -->
+  <!-- Main Body Cylinder base   -->
+  <property name="base_height" value="0.02" /> 
+  <property name="base_radius" value="0.15" /> 
+  <property name="base_mass" value="5" /> <!-- in kg-->
+
+
+
+  <!-- caster wheel radius and height -->
+  <!-- caster wheel mass -->
+  <property name="caster_f_height" value="0.04" /> 
+  <property name="caster_f_radius" value="0.025" /> 
+  <property name="caster_f_mass" value="0.5" /> <!-- in kg-->
+
+
+
+  <!-- caster wheel radius and height -->
+  <!-- caster wheel mass -->
+  <property name="caster_b_height" value="0.04" /> 
+  <property name="caster_b_radius" value="0.025" /> 
+  <property name="caster_b_mass" value="0.5" /> <!-- in kg-->
+
+
+
+
+  <!-- Wheels -->
+
+  <property name="wheel_mass" value="2.5" /> --> <!-- in kg-->
+  <property name="base_x_origin_to_wheel_origin" value="0.25" />
+  <property name="base_y_origin_to_wheel_origin" value="0.3" />
+  <property name="base_z_origin_to_wheel_origin" value="0.0" />
+
+
+  <!-- Hokuyo Laser scanner -->
+  <property name="hokuyo_size" value="0.05" />
+
+
+
+  <!-- Macro for calculating inertia of cylinder -->
+  <macro name="cylinder_inertia" params="m r h">
+    <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
+              iyy="${m*(3*r*r+h*h)/12}" iyz = "0"
+              izz="${m*r*r/2}" /> 
+  </macro>
+
+
+  <!-- BASE-FOOTPRINT -->
+  <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin -->
+  <link name="base_footprint">
+    <inertial>
+      <mass value="0.0001" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+          iyy="0.0001" iyz="0.0" 
+          izz="0.0001" />
+    </inertial>
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+            <box size="0.001 0.001 0.001" />
+        </geometry>
+    </visual>
+  </link>
+
+  <gazebo reference="base_footprint">
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+  <joint name="base_footprint_joint" type="fixed">
+    <origin xyz="0 0 ${wheel_radius - base_z_origin_to_wheel_origin}" rpy="0 0 0" />
+    <parent link="base_footprint"/>
+    <child link="base_link" />
+  </joint>
+  
+
+
+</robot>

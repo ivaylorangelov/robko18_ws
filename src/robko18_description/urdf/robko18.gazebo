@@ -35,8 +35,11 @@
     </plugin>
   </gazebo>
 
+ <gazebo reference="base_footprint">
+    <material>Gazebo/Red</material>
+  </gazebo>
 
-  <gazebo reference="chassis">
+  <gazebo reference="base_link">
     <material>Gazebo/Orange</material>
   </gazebo>
 

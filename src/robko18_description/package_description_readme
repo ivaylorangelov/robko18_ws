@@ -1,0 +1,9 @@
+This package contains robot description files for PR2, organized into subdirectories as follows:
+
+urdf/ contains (xacro representations of) urdf descriptions of various parts of the PR2 (arm, torso, etc.).
+
+robots/ contains (xacro representations of) urdf descriptions of the full robot, that refer to the macros in urdf/
+
+gazebo/ contains (xacro representations of) urdf descriptions of simulated PR2 components, like the simulated battery controller.
+
+meshes/ contains mesh files (.stl,.dae) for visualization and collision properties.
