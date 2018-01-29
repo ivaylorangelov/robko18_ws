@@ -5,6 +5,8 @@
   <xacro:include filename="$(find robko18_description)/urdf/robko18.gazebo" />
   <xacro:include filename="$(find robko18_description)/urdf/materials.xacro" />
   <xacro:include filename="$(find robko18_description)/urdf/macros.xacro" />
+  <!-- 3D Sensors -->
+  <!--<xacro:include filename="$(find robko18_description)/urdf/kinect.urdf.xacro"/>-->
 
   <!-- ####### generic constants ##### -->
   <!--All units in m-kg-s-radians unit system -->
@@ -39,17 +41,24 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
   <xacro:property name="BASE_PLATE_FROM_BASE_FRAME_Z_OFFSET" value="${0.10+(base_height/2)}" /> <!-- meters -->
 
  <!-- second_deck - Base Plate/Deck Cylinder base   -->
-  <xacro:property name="second_deck_from_base_link_Z_offset" value="0.145"/>
+  <xacro:property name="second_deck_from_base_link_Z_offset" value="${0.145+(second_deck_height/2)}"/>
   <xacro:property name="second_deck_height" value="${0.375*SCALE_in_m}" /> 
   <xacro:property name="second_deck_radius" value="${17.75*SCALE_in_m}" /> 
   <xacro:property name="second_deck_mass" value="1.5" />   <!-- in kg -->
 
   <!-- third_deck - Base Plate/Deck Cylinder base   -->
-  <xacro:property name="third_deck_from_base_link_Z_offset" value="0.145"/>
+  <xacro:property name="third_deck_from_second_deck_Z_offset" value="${0.156+(third_deck_height/2)}"/>
   <xacro:property name="third_deck_height" value="${0.375*SCALE_in_m}" /> 
   <xacro:property name="third_deck_radius" value="${17.75*SCALE_in_m}" /> 
   <xacro:property name="third_deck_mass" value="1.5" />   <!-- in kg -->
 
+ <!-- kinect_mount_point - joint data for maunting kinect relative to base_link  -->
+  <xacro:property name="kinect_mount_point_from_base_link_Z_offset" value="0.90"/>
+  <xacro:property name="kinect_mount_point_from_base_link_X_offset" value="-${base_radius - 0.10}"/> 
+  <xacro:property name="kinect_deck_height" value="0.02" /> 
+  <xacro:property name="kinect_deck_width" value="0.05" /> 
+  <xacro:property name="kinect_deck_lenght" value="0.05" /> 
+  <xacro:property name="kinect_deck_mass" value=".05" />    <!--in kg--> 
 
   <!-- Wheels -->
   <xacro:property name="wheel_diameter" value="${6*SCALE_in_m}"/>
@@ -355,8 +364,7 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
     <child link="second_deck"/>
   </joint>
 
-  <!-- BASE-LINK -->
-  <!--Center on the bottom side of the base plate of the robot-->
+  <!--Centered on the bottom side of the second deck/plate of the robot-->
 
   <link name='second_deck'>
     <pose>0 0 0.1 0 0 0</pose>
@@ -390,18 +398,18 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
 
 <!--########################################-->
 
-<!--######### third DECK ###############################-->
+<!--######### THIRD DECK ###############################-->
 
-  <!-- JOINT third_deck TO BASE_LINK -->
+  <!-- JOINT THIRD_DECK TO SECOND_DECK -->
   <joint name="third_deck_second_deck_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 ${third_deck_from_base_link_Z_offset}"/>
+    <origin rpy="0 0 0" xyz="0 0 ${third_deck_from_second_deck_Z_offset}"/>
     <parent link="second_deck"/>
     <child link="third_deck"/>
   </joint>
 
-  <!-- BASE-LINK -->
-  <!--Center on the bottom side of the base plate of the robot-->
 
+  <!--Center on the bottom side of the base plate of the robot-->
+  
   <link name='third_deck'>
     <pose>0 0 0.1 0 0 0</pose>
 
@@ -432,10 +440,55 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
 
   </link>
 
+<!--########################################-->
+
+<!--######### KINECT DECK ###############################-->
+
+  <!-- JOINT THIRD_DECK TO SECOND_DECK -->
+  <joint name="Kinect_deck_to_base_link_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="${kinect_mount_point_from_base_link_X_offset} 0 ${kinect_mount_point_from_base_link_Z_offset}"/>
+    <parent link="base_link"/>
+    <child link="kinect_deck"/>
+  </joint>
+
+
+  <!--Center on the bottom side of the base plate of the robot-->
+  
+  <link name='kinect_deck'>
+    <pose>0 0 0.1 0 0 0</pose>
+
+    <inertial>
+      <mass value="${kinect_deck_mass}"/>
+      <origin xyz="0.0 0 0.1" rpy=" 0 0 0"/>
+      <inertia
+          ixx="0.1" ixy="0" ixz="0"
+          iyy="0.1" iyz="0"
+          izz="0.1"
+      />
+    </inertial>
+
+    <collision name='collision'>
+      <geometry>
+        <box size="${kinect_deck_width} ${kinect_deck_height} ${kinect_deck_lenght}" />
+      </geometry>
+    </collision>
+
+    <visual name='third_deck__visual'>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${kinect_deck_width} ${kinect_deck_height} ${kinect_deck_lenght}" />
+      </geometry>
+      <material name="red"/>
+    </visual>
+
+  </link>
 
 <!--########################################-->
 
-  <link name="camera">
+
+<!--############# CAMERA ###########################-->
+
+  <!--<link name="camera">
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -464,8 +517,10 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
     <origin xyz=".2 0 0" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="camera"/>
-  </joint>
+  </joint>-->
+<!--##############################################-->
 
+<!--############### HOUYO LASER ##################-->
 
   <joint name="hokuyo_joint" type="fixed">
     <axis xyz="0 1 0" />
@@ -495,8 +550,8 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
     </inertial>
-  </link>
-
+  </link> 
+  
 
 </robot>
 
