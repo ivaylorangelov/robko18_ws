@@ -6,7 +6,7 @@
   <xacro:include filename="$(find robko18_description)/urdf/materials.xacro" />
   <xacro:include filename="$(find robko18_description)/urdf/macros.xacro" />
   <!-- 3D Sensors -->
-  <!--<xacro:include filename="$(find robko18_description)/urdf/kinect.urdf.xacro"/>-->
+  <xacro:include filename="$(find robko18_description)/urdf/kinect.urdf.xacro"/>
 
   <!-- ####### generic constants ##### -->
   <!--All units in m-kg-s-radians unit system -->
@@ -29,7 +29,7 @@ The Arlo top deck adds 5.375" (13.65 cm) of height when used with the Arlo Base 
 Overall height is 5.375 inches ( 13.65cm)
 Weight = 3.5 lbs (1.59 kg) per assembly
 Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
--->  second_deck
+--> 
   <!-- base_link - Base Plate/Deck Cylinder base   -->
   <xacro:property name="base_from_base_frame_Z_offset" value="0.10"/>
   <xacro:property name="base_height" value="${0.375*SCALE_in_m}" /> 
@@ -554,8 +554,9 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
     </inertial>
-  </link> 
-  
+  </link>
+
+   <sensor_kinect  parent="kinect_support"/>
 
 </robot>
 
