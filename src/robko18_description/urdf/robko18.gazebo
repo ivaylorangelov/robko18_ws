@@ -44,14 +44,17 @@
     <material>Gazebo/Orange</material>
   </gazebo>
 
-  <gazebo reference="left_wheel">
+  <!--<gazebo reference="left_wheel">
     <material>Gazebo/Blue</material>
-  </gazebo>
+  </gazebo>-->
 
-  <gazebo reference="right_wheel">
+  <!--<gazebo reference="right_wheel">
     <material>Gazebo/Blue</material>
-  </gazebo>
+  </gazebo>-->
 
+  <gazebo reference="kinect_support">
+    <material>Gazebo/Orange</material>
+  </gazebo>
 
   <gazebo reference="camera">
     <material>Gazebo/Green</material>
@@ -90,8 +93,8 @@
   <gazebo reference="hokuyo">
     <sensor type="gpu_ray" name="head_hokuyo_sensor">
       <pose>0 0 0 0 0 0</pose>
-      <!--<visualize>false</visualize>-->
-      <visualize>true</visualize>
+      <visualize>false</visualize>
+      <!--<visualize>true</visualize>-->
 
       <update_rate>40</update_rate>
       <ray>

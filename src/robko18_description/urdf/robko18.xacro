@@ -1,4 +1,4 @@
-<?xml version='1.0'?>
+<?xml version="1.0"?>
 
 <robot name="robko18" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
@@ -33,7 +33,7 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
   <!-- base_link - Base Plate/Deck Cylinder base   -->
   <xacro:property name="base_from_base_frame_Z_offset" value="0.10"/>
   <xacro:property name="base_height" value="${0.375*SCALE_in_m}" /> 
-  <xacro:property name="base_radius" value="${17.75*SCALE_in_m}" /> 
+  <xacro:property name="base_radius" value="${17.75*SCALE_in_m/2}" /> 
   <!-- in kg weight with the battery holder plate bellow -->
   <xacro:property name="base_mass" value="1.75" /> 
   
@@ -43,22 +43,23 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
  <!-- second_deck - Base Plate/Deck Cylinder base   -->
   <xacro:property name="second_deck_from_base_link_Z_offset" value="${0.145+(second_deck_height/2)}"/>
   <xacro:property name="second_deck_height" value="${0.375*SCALE_in_m}" /> 
-  <xacro:property name="second_deck_radius" value="${17.75*SCALE_in_m}" /> 
+  <xacro:property name="second_deck_radius" value="${17.75*SCALE_in_m/2}" /> 
   <xacro:property name="second_deck_mass" value="1.5" />   <!-- in kg -->
 
   <!-- third_deck - Base Plate/Deck Cylinder base   -->
   <xacro:property name="third_deck_from_second_deck_Z_offset" value="${0.156+(third_deck_height/2)}"/>
   <xacro:property name="third_deck_height" value="${0.375*SCALE_in_m}" /> 
-  <xacro:property name="third_deck_radius" value="${17.75*SCALE_in_m}" /> 
+  <xacro:property name="third_deck_radius" value="${17.75*SCALE_in_m/2}" /> 
   <xacro:property name="third_deck_mass" value="1.5" />   <!-- in kg -->
 
  <!-- kinect_mount_point - joint data for maunting kinect relative to base_link  -->
-  <xacro:property name="kinect_mount_point_from_base_link_Z_offset" value="0.90"/>
-  <xacro:property name="kinect_mount_point_from_base_link_X_offset" value="-${base_radius - 0.10}"/> 
-  <xacro:property name="kinect_deck_height" value="0.02" /> 
-  <xacro:property name="kinect_deck_width" value="0.05" /> 
-  <xacro:property name="kinect_deck_lenght" value="0.05" /> 
-  <xacro:property name="kinect_deck_mass" value=".05" />    <!--in kg--> 
+  <xacro:property name="kinect_mount_point_from_base_link_Z_offset" value="0.50"/>
+  <!--<xacro:property name="kinect_mount_point_from_base_link_X_offset" value="-${base_radius - 0.10}"/> -->
+  <xacro:property name="kinect_mount_point_from_base_link_X_offset" value="-${0.14509}"/> 
+  <xacro:property name="kinect_support_height" value="0.02" /> 
+  <xacro:property name="kinect_support_width" value="0.01" /> 
+  <xacro:property name="kinect_support_lenght" value="0.02" /> 
+  <xacro:property name="kinect_support_mass" value=".05" />    <!--in kg--> 
 
   <!-- Wheels -->
   <xacro:property name="wheel_diameter" value="${6*SCALE_in_m}"/>
@@ -125,7 +126,7 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
   <!-- BASE-LINK -->
   <!--Center on the bottom side of the base plate of the robot-->
 
-  <link name='base_link'>
+  <link name="base_link">
     <pose>0 0 0.1 0 0 0</pose>
 
     <inertial>
@@ -138,13 +139,13 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
       />
     </inertial>
 
-    <collision name='collision'>
+    <collision name="collision">
       <geometry>
        <cylinder radius="${base_radius}" length="${base_height}"/>
       </geometry>
     </collision>
 
-    <visual name='base_visual'>
+    <visual name="base_visual">
       <origin xyz="0 0 0" rpy="${M_PI_2} 0 ${M_PI_2}"/>
       <geometry>
         <!--<cylinder radius="${base_radius}" length="${base_height}"/>-->
@@ -164,9 +165,11 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
       </geometry>
     </collision>
     <visual name="left_wheel_visual">
-      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <!--<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>-->
+      <origin xyz="0 0 0" rpy="0 0 1.5707"/>
       <geometry>
-        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+        <mesh filename="$(find robko18_description)/meshes/wheel.dae" scale="0.0012 0.0012 0.0012"/>
+        <!--<cylinder radius="${wheel_radius}" length="${wheel_width}"/>-->
       </geometry>
     </visual>
     <inertial>
@@ -187,10 +190,11 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
       </geometry>
     </collision>
     <visual name="right_wheel_visual">
-      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <!--<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>-->
+      <origin xyz="0 0 0" rpy="0 0 1.5707"/>      
       <geometry>
-        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
-
+        <!--<cylinder radius="${wheel_radius}" length="${wheel_width}"/>-->
+        <mesh filename="$(find robko18_description)/meshes/wheel.dae" scale="0.0012 0.0012 0.0012"/>
       </geometry>
     </visual>
     <inertial>
@@ -366,7 +370,7 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
 
   <!--Centered on the bottom side of the second deck/plate of the robot-->
 
-  <link name='second_deck'>
+  <link name="second_deck">
     <pose>0 0 0.1 0 0 0</pose>
 
     <inertial>
@@ -379,13 +383,13 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
       />
     </inertial>
 
-    <collision name='collision'>
+    <collision name="collision">
       <geometry>
        <cylinder radius="${second_deck_radius}" length="${second_deck_height}"/>
       </geometry>
     </collision>
 
-    <visual name='second_deck_visual'>
+    <visual name="second_deck_visual">
       <origin xyz="0 0 0" rpy="${M_PI_2} 0 ${M_PI_2}"/>
       <geometry>
         <!--<cylinder radius="${base_radius}" length="${base_height}"/>-->
@@ -410,7 +414,7 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
 
   <!--Center on the bottom side of the base plate of the robot-->
   
-  <link name='third_deck'>
+  <link name="third_deck">
     <pose>0 0 0.1 0 0 0</pose>
 
     <inertial>
@@ -423,13 +427,13 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
       />
     </inertial>
 
-    <collision name='collision'>
+    <collision name="collision">
       <geometry>
        <cylinder radius="${third_deck_radius}" length="${third_deck_height}"/>
       </geometry>
     </collision>
 
-    <visual name='third_deck__visual'>
+    <visual name="third_deck__visual">
       <origin xyz="0 0 0" rpy="${M_PI_2} 0 ${M_PI_2}"/>
       <geometry>
         <!--<cylinder radius="${base_radius}" length="${base_height}"/>-->
@@ -442,23 +446,23 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
 
 <!--########################################-->
 
-<!--######### KINECT DECK ###############################-->
+<!--######### KINECT SUPPORT ###############################-->
 
-  <!-- JOINT THIRD_DECK TO SECOND_DECK -->
-  <joint name="Kinect_deck_to_base_link_joint" type="fixed">
+  <!-- JOINT KINECT_SUPPORT TO BASE_LINK -->
+  <joint name="Kinect_support_to_base_link_joint" type="fixed">
     <origin rpy="0 0 0" xyz="${kinect_mount_point_from_base_link_X_offset} 0 ${kinect_mount_point_from_base_link_Z_offset}"/>
     <parent link="base_link"/>
-    <child link="kinect_deck"/>
+    <child link="kinect_support"/>
   </joint>
 
 
-  <!--Center on the bottom side of the base plate of the robot-->
+  <!--BASE LINK IS AT center on the bottom side of the base deck/plate of the robot-->
   
-  <link name='kinect_deck'>
+  <link name="kinect_support">
     <pose>0 0 0.1 0 0 0</pose>
 
     <inertial>
-      <mass value="${kinect_deck_mass}"/>
+      <mass value="${kinect_support_mass}"/>
       <origin xyz="0.0 0 0.1" rpy=" 0 0 0"/>
       <inertia
           ixx="0.1" ixy="0" ixz="0"
@@ -467,16 +471,16 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
       />
     </inertial>
 
-    <collision name='collision'>
+    <collision name="collision">
       <geometry>
-        <box size="${kinect_deck_width} ${kinect_deck_height} ${kinect_deck_lenght}" />
+        <box size="${kinect_support_height} ${kinect_support_lenght} ${kinect_support_width}" />
       </geometry>
     </collision>
 
-    <visual name='third_deck__visual'>
+    <visual name="kinect_support__visual">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <box size="${kinect_deck_width} ${kinect_deck_height} ${kinect_deck_lenght}" />
+        <box size="${kinect_support_height} ${kinect_support_lenght} ${kinect_support_width}" />
       </geometry>
       <material name="red"/>
     </visual>
