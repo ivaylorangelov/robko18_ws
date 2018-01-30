@@ -6,7 +6,7 @@
   <xacro:include filename="$(find robko18_description)/urdf/materials.xacro" />
   <xacro:include filename="$(find robko18_description)/urdf/macros.xacro" />
   <!-- 3D Sensors -->
-  <xacro:include filename="$(find robko18_description)/urdf/kinect.urdf.xacro"/>
+  <!--<xacro:include filename="$(find robko18_description)/urdf/kinect.urdf.xacro"/>-->
 
   <!-- ####### generic constants ##### -->
   <!--All units in m-kg-s-radians unit system -->
@@ -565,10 +565,10 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
     </inertial>
   </link>
 
-  <xacro:include filename="$(find robko18_description)/urdf/robko18_gazebo.urdf.xacro"/>
+  <!--<xacro:include filename="$(find robko18_description)/urdf/robko18_gazebo.urdf.xacro"/>
   <xacro:include filename="$(find robko18_description)/urdf/robko18_properties.urdf.xacro"/>
 
-   <sensor_kinect  parent="kinect_support"/>
+   <sensor_kinect  parent="kinect_support"/>-->
 
 </robot>
 

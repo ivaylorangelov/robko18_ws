@@ -15,7 +15,8 @@
     <remap from="scan" to="robko18/laser/scan"/>
     <param name="odom_frame_id" value="odom"/>
     <param name="odom_model_type" value="diff-corrected"/>
-    <param name="base_frame_id" value="chassis"/>
+    <!--<param name="base_frame_id" value="chassis"/>-->
+    <param name="base_frame_id" value="base_footprint"/>
     <param name="update_min_d" value="0.5"/>
     <param name="update_min_a" value="1.0"/>
   </node>
