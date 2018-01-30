@@ -2,11 +2,11 @@
 
 <robot name="robko18" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find robko18_description)/urdf/robko18.gazebo" />
+  <xacro:include filename="$(find robko18_description)/urdf/robko18_gazebo.urdf.xacro" />
   <xacro:include filename="$(find robko18_description)/urdf/materials.xacro" />
   <xacro:include filename="$(find robko18_description)/urdf/macros.xacro" />
   <!-- 3D Sensors -->
-  <xacro:include filename="$(find robko18_description)/urdf/kinect.urdf.xacro"/>
+  <!--<xacro:include filename="$(find robko18_description)/urdf/kinect.urdf.xacro"/>-->
 
   <!-- ####### generic constants ##### -->
   <!--All units in m-kg-s-radians unit system -->
@@ -148,10 +148,8 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
     <visual name="base_visual">
       <origin xyz="0 0 0" rpy="${M_PI_2} 0 ${M_PI_2}"/>
       <geometry>
-        <!--<cylinder radius="${base_radius}" length="${base_height}"/>-->
+        <cylinder radius="${base_radius}" length="${base_height}"/>
         <!--<mesh filename="$(find robko18_description)/meshes/ArloBottomplateTST.dae" scale="0.001 0.001 0.001"/>-->
-        <mesh filename="package://robko18_description/meshes/ArloBottomplateTST.dae" scale="0.001 0.001 0.001"/>
-        
       </geometry>
       <material name="orange"/>
     </visual>
@@ -171,9 +169,7 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
       <origin xyz="0 0 0" rpy="0 0 1.5707"/>
       <geometry>
         <!--<mesh filename="$(find robko18_description)/meshes/wheel.dae" scale="0.0012 0.0012 0.0012"/>-->
-        <mesh filename="package://robko18_description/meshes/wheel.dae" scale="0.0012 0.0012 0.0012"/>
-        
-        <!--<cylinder radius="${wheel_radius}" length="${wheel_width}"/>-->
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
       </geometry>
     </visual>
     <inertial>
@@ -197,10 +193,8 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
       <!--<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>-->
       <origin xyz="0 0 0" rpy="0 0 1.5707"/>      
       <geometry>
-        <!--<cylinder radius="${wheel_radius}" length="${wheel_width}"/>-->
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
         <!--<mesh filename="$(find robko18_description)/meshes/wheel.dae" scale="0.0012 0.0012 0.0012"/>-->
-        <mesh filename="package://robko18_description/meshes/wheel.dae" scale="0.0012 0.0012 0.0012"/>
-             
       </geometry>
     </visual>
     <inertial>
@@ -398,10 +392,8 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
     <visual name="second_deck_visual">
       <origin xyz="0 0 0" rpy="${M_PI_2} 0 ${M_PI_2}"/>
       <geometry>
-        <!--<cylinder radius="${base_radius}" length="${base_height}"/>-->
+        <cylinder radius="${base_radius}" length="${base_height}"/>
         <!--<mesh filename="$(find robko18_description)/meshes/ArloBottomplateTST.dae" scale="0.001 0.001 0.001"/>-->
-        <mesh filename="package://robko18_description/meshes/ArloBottomplateTST.dae" scale="0.001 0.001 0.001"/>
-        
       </geometry>
       <material name="orange"/>
     </visual>
@@ -501,7 +493,7 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
 
 <!--############# CAMERA ###########################-->
 
-  <!--<link name="camera">
+  <link name="camera">
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -530,7 +522,7 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
     <origin xyz=".2 0 0" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="camera"/>
-  </joint>-->
+  </joint>
 <!--##############################################-->
 
 <!--############### HOUYO LASER ##################-->
@@ -565,10 +557,10 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
     </inertial>
   </link>
 
-  <xacro:include filename="$(find robko18_description)/urdf/robko18_gazebo.urdf.xacro"/>
+  <!--<xacro:include filename="$(find robko18_description)/urdf/robko18_gazebo.urdf.xacro"/>
   <xacro:include filename="$(find robko18_description)/urdf/robko18_properties.urdf.xacro"/>
 
-   <sensor_kinect  parent="kinect_support"/>
+   <sensor_kinect  parent="kinect_support"/>-->
 
 </robot>
 
