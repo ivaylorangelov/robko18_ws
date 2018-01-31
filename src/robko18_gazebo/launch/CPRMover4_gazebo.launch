@@ -9,7 +9,7 @@
   <arg name="debug" default="false"/>
   
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <!--arg name="world_name" value="$(find robko18_gazebo)/worlds/robko18.world"/-->
+   <!--<arg name="world_name" value="$(find robko18_gazebo)/worlds/robko18.world"/>-->
     <arg name="world_name" value="$(find robko18_gazebo)/worlds/turtlebot_playground.world"/>
     <arg name="paused" value="$(arg paused)"/>
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
@@ -19,9 +19,9 @@
   </include>
 
   
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robko18_description)/urdf/robko18.new.xacro'"/>
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robko18_description)/urdf/CPRMover4.urdf.xacro'"/>
 
-  <node name="robko18_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-   args="-urdf -param robot_description -model robko18" />
+  <node name="CPRMover4_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+   args="-urdf -param robot_description -model CPRMover4" />
 
 </launch>

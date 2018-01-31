@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<robot name="CPRMover4" xmlns:xacro="http://ros.org/wiki/xacro" >
+ <!-- base_link - Base Plate/Deck Cylinder base   -->
+   <xacro:property name="wheel_diameter" value="${6*SCALE_in_m}"/>
+  <xacro:property name="wheel_radius" value="${wheel_diameter/2}"/>
+  <xacro:property name="wheel_width" value="0.03"/><!--set to tyre width-->
+  <xacro:property name="wheel_mass" value="0.6" /> --> <!-- ???? in kg-->
+  <xacro:property name="base_from_base_frame_Z_offset" value="0.10"/>
+  <xacro:property name="base_height" value="${0.375*SCALE_in_m}" /> 
+  <xacro:property name="base_radius" value="${17.75*SCALE_in_m/2}" /> 
+    <xacro:property name="BASE_PLATE_FROM_BASE_FRAME_Z_OFFSET" value="${0.10+(base_height/2)}" /> <!-- meters -->
+
+  <!-- in kg weight with the battery holder plate bellow -->
+  <xacro:property name="base_mass" value="1.75" /> 
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+  <xacro:property name="M_PI_2" value="1.570796327" />
+  <xacro:property name="DEG_TO_RAD" value="0.017453293" />
+  <xacro:property name="SCALE_in_m" value="0.0254"/> <!--inches to meters-->
+  <xacro:property name="SCALE_mm_m" value="0.001"/> <!--milimeters to meters-->
+  <xacro:property name="base_x_origin_to_wheel_origin" value="0.0" />
+  <xacro:property name="base_y_origin_to_wheel_origin" value="0.2" />
+    <!--<xacro:property name="base_y_origin_to_wheel_origin" value="0.19" />-->
+  <xacro:property name="base_z_origin_to_wheel_origin" value="${BASE_PLATE_FROM_BASE_FRAME_Z_OFFSET - wheel_radius}" />
+
+
+
+<!-- URDF file for the Commonplace Robotics Mover4 robot arm -->
+<!-- Version 1.1 from Oct. 04th, 2016. -->
+   
+  <link name="base_footprint">
+    <inertial>
+      <mass value="0.0001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+  <gazebo reference="base_footprint">
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+  <!-- JOINT BASE_LINK TO BASE_FRAME-->
+  <joint name="base_footprint_base_link_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.10"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+  </joint>
+<link name="base_link">
+  <inertial>
+      <mass value="0.0001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+    <visual>
+	<origin rpy="0 0 0" xyz="0 0 0.0"/>
+      <geometry>
+	<mesh filename="package://robko18_description/meshes/Joint0.dae" scale="0.001 0.001 0.001"/>
+	<!--<mesh filename="package://robko18_description/meshes/Joint1.dae" scale="0.001 0.001 0.001"/>-->
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robko18_description/meshes/Joint0Coll.dae" scale="0.001 0.001 0.001"/>
+        <!--<mesh filename="package://robko18_description/meshes/Joint1Coll.dae" scale="0.001 0.001 0.001"/>-->
+      </geometry>
+    </collision>
+  </link>
+
+<link name="geoJoint1">
+  <inertial>
+      <mass value="0.0001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+    <visual>
+	<origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+	<mesh filename="package://robko18_description/meshes/Joint1.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+       <cylinder radius="0.03" length="0.10"/>
+        <!--<mesh filename="package://robko18_description/meshes/Joint1Coll.dae" scale="0.001 0.001 0.001"/>-->
+      </geometry>
+    </collision>
+  </link>
+
+  <joint type="continuous" name="left_wheel_hinge">
+    <origin xyz="0 ${base_y_origin_to_wheel_origin} -${base_z_origin_to_wheel_origin}" rpy="0 0 0"/>
+        <!--<origin xyz="0 0.19 -${0.10 - 0.0231}" rpy="0 0 0"/>-->
+
+    <child link="geoJoint1"/>
+    <parent link="base_link"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0"/>
+  </joint>
+  
+  <!--<joint name="base_caster_box_front_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.2 0 0.5"/>
+    <parent link="base_link"/>
+    <child link="geoJoint1"/>
+  </joint>-->
+
+    <!--<joint name="Joint0" type="continuous">
+    <axis xyz="0 0 1"/>
+    <parent link="base_link"/>
+    <child link="geoJoint1"/>
+    <origin rpy="0 0 0" xyz="0.1 0 0"/>
+    <limit effort="100" velocity="30"/>
+    <joint_properties damping="1000" friction="1000"/>
+  </joint>-->
+
+
+</robot>
