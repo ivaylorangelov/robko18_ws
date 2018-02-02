@@ -19,9 +19,11 @@
   </include>
 
   
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robko18_description)/urdf/CPRMover4.test.urdf.xacro'"/>
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robko18_description)/urdf/cprmover4_standalone.urdf.xacro'"/>
 
   <node name="CPRMover4_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
-   args="-urdf -param robot_description -model cprmover4" />
+   args="-urdf -param robot_description -model cprmover4_standalone" />
+
+
 
 </launch>

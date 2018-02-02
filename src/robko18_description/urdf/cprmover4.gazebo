@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<robot>
+
+<!-- Transmissions macro    -->
+<xacro:macro name="transmission_block" params="joint_name">
+	  <transmission name="tran1">
+	    <type>transmission_interface/SimpleTransmission</type>
+	    <joint name="${joint_name}">
+	      <hardwareInterface>PositionJointInterface</hardwareInterface>
+	    </joint>
+	    <actuator name="motor1">
+	      <hardwareInterface>PositionJointInterface</hardwareInterface>
+	      <mechanicalReduction>1</mechanicalReduction>
+	    </actuator>
+	  </transmission>
+   </xacro:macro>
+
+    <!-- Transmissions for ROS Control -->
+
+   <xacro:transmission_block joint_name="Joint0"/>
+   <xacro:transmission_block joint_name="Joint1"/>
+   <xacro:transmission_block joint_name="Joint2"/>
+   <xacro:transmission_block joint_name="Joint3"/>
+   <xacro:transmission_block joint_name="Gripper1"/>
+   <xacro:transmission_block joint_name="Gripper2"/>
+
+     <!-- ros_control plugin -->
+<gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+    <robotNamespace>/cprmover4</robotNamespace>
+  </plugin>
+</gazebo>
+
+</robot>

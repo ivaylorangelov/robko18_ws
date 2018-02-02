@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: robko18_description
+    relative_path: urdf/CPRMover4_standalone.urdf.xacro
+  SRDF:
+    relative_path: config/CPRMover4.srdf
+  CONFIG:
+    author_name: Stefan
+    author_email: s@s.bg
+    generated_timestamp: 1517523406
