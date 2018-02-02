@@ -41,4 +41,9 @@
   <remap from="/joint_states" to="/cprmover4/joint_states" />
   </node>
 
+  <!-- zaradi vryzkata s moveIt dali da gi ostaia v cprmover4 namespace ili da gi rempna s primer ot koda po doly?-->
+<!-- remap topics to conform to ROS-I specifications -->
+  <!--<remap from="/arm_controller/follow_joint_trajectory" to="/joint_trajectory_action" />
+  <remap from="/arm_controller/state" to="/feedback_states" />
+  <remap from="/arm_controller/command" to="/joint_path_command"/>-->
 </launch>

@@ -3,10 +3,10 @@
   <name>cprmover4_moveit_config</name>
   <version>0.3.0</version>
   <description>
-     An automatically generated package with all the configuration and launch files for using the CPRMover4 with the MoveIt! Motion Planning Framework
+     An automatically generated package with all the configuration and launch files for using the cprmover4 with the MoveIt! Motion Planning Framework
   </description>
-  <author email="s@s.bg">Stefan</author>
-  <maintainer email="s@s.bg">Stefan</maintainer>
+  <author email="s@s.com">Stefan</author>
+  <maintainer email="s@s.com">Stefan</maintainer>
 
   <license>BSD</license>
 
