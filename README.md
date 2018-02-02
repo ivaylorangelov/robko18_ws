@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Shift + Alt + F format code VS code
 
 source devel/setup.bash
@@ -93,3 +94,9 @@ sudo apt-get install ros-kinetic-turtlebot ros-kinetic-turtlebot-apps ros-kineti
 *********************
 So that I can use urdf_to_graphix to get a visual urdf?????
 ******************************
+=======
+robko18_ws
+test
+test2
+test3
+>>>>>>> cb86d4a23d16991462233c88db497ae57eeccd76
