@@ -1,34 +1,105 @@
 <?xml version="1.0"?>
 
-<robot name="robot_description" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="robko18" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
- <!-- base_link - Base Plate/Deck Cylinder base   -->
-   <xacro:property name="wheel_diameter" value="${6*SCALE_in_m}"/>
-  <xacro:property name="wheel_radius" value="${wheel_diameter/2}"/>
-  <xacro:property name="wheel_width" value="0.03"/><!--set to tyre width-->
-  <xacro:property name="wheel_mass" value="0.6" /> --> <!-- ???? in kg-->
-  <xacro:property name="base_from_base_frame_Z_offset" value="0.10"/>
-  <xacro:property name="base_height" value="${0.375*SCALE_in_m}" /> 
-  <xacro:property name="base_radius" value="${17.75*SCALE_in_m/2}" /> 
-    <xacro:property name="BASE_PLATE_FROM_BASE_FRAME_Z_OFFSET" value="${0.10+(base_height/2)}" /> <!-- meters -->
+  <xacro:include filename="$(find robko18_description)/urdf/robko18.gazebo" />
+  <xacro:include filename="$(find robko18_description)/urdf/materials.xacro" />
+  <xacro:include filename="$(find robko18_description)/urdf/macros.xacro" />
+  <!-- 3D Sensors -->
+  <!--<xacro:include filename="$(find robko18_description)/urdf/kinect.urdf.xacro"/>-->
 
-  <!-- in kg weight with the battery holder plate bellow -->
-  <xacro:property name="base_mass" value="1.75" /> 
+  <!-- ####### generic constants ##### -->
+  <!--All units in m-kg-s-radians unit system -->
+
   <xacro:property name="M_PI" value="3.1415926535897931" />
   <xacro:property name="M_PI_2" value="1.570796327" />
   <xacro:property name="DEG_TO_RAD" value="0.017453293" />
   <xacro:property name="SCALE_in_m" value="0.0254"/> <!--inches to meters-->
   <xacro:property name="SCALE_mm_m" value="0.001"/> <!--milimeters to meters-->
+  
+   <!-- robot constants -->
+
+
+    <!-- Main body radius and height -->
+    <!--Base Plate Dimensions: 0.375" (0.95 cm) thick x 17.75" (45.09 cm) diameter
+Double Battery Shelf Dimensions: 0.375" (0.95 cm) thick x 7.0" (17.78 cm) x 13.25" ( 11.43 x 33.66 cm)
+Battery Containment Area Dimensions: 2.625" x 8.00" x 6.75"
+Weight = 3.85 lbs (1.75 kg)
+The Arlo top deck adds 5.375" (13.65 cm) of height when used with the Arlo Base Kit
+Overall height is 5.375 inches ( 13.65cm)
+Weight = 3.5 lbs (1.59 kg) per assembly
+Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
+--> 
+  <!-- base_link - Base Plate/Deck Cylinder base   -->
+  <xacro:property name="base_from_base_frame_Z_offset" value="0.10"/>
+  <xacro:property name="base_height" value="${0.375*SCALE_in_m}" /> 
+  <xacro:property name="base_radius" value="${17.75*SCALE_in_m/2}" /> 
+  <!-- in kg weight with the battery holder plate bellow -->
+  <xacro:property name="base_mass" value="1.75" /> 
+  
+   <!-- distance between the robot origin and the bottom of the base plate along the z axis (robot up) -->
+  <xacro:property name="BASE_PLATE_FROM_BASE_FRAME_Z_OFFSET" value="${0.10+(base_height/2)}" /> <!-- meters -->
+
+ <!-- second_deck - Base Plate/Deck Cylinder base   -->
+  <xacro:property name="second_deck_from_base_link_Z_offset" value="${0.145+(second_deck_height/2)}"/>
+  <xacro:property name="second_deck_height" value="${0.375*SCALE_in_m}" /> 
+  <xacro:property name="second_deck_radius" value="${17.75*SCALE_in_m/2}" /> 
+  <xacro:property name="second_deck_mass" value="1.5" />   <!-- in kg -->
+
+  <!-- third_deck - Base Plate/Deck Cylinder base   -->
+  <xacro:property name="third_deck_from_second_deck_Z_offset" value="${0.156+(third_deck_height/2)}"/>
+  <xacro:property name="third_deck_height" value="${0.375*SCALE_in_m}" /> 
+  <xacro:property name="third_deck_radius" value="${17.75*SCALE_in_m/2}" /> 
+  <xacro:property name="third_deck_mass" value="1.5" />   <!-- in kg -->
+
+
+
+ <!-- kinect_mount_point - joint data for maunting kinect relative to base_link  -->
+  <xacro:property name="kinect_mount_point_from_base_link_Z_offset" value="0.50" />
+  <!--<xacro:property name="kinect_mount_point_from_base_link_X_offset" value="-${base_radius - 0.10}"/> -->
+  <xacro:property name="kinect_mount_point_from_base_link_X_offset" value="-${0.14509}"/> 
+  <xacro:property name="kinect_support_height" value="0.02" /> 
+  <xacro:property name="kinect_support_width" value="0.01" /> 
+  <xacro:property name="kinect_support_lenght" value="0.02" /> 
+  <xacro:property name="kinect_support_mass" value=".05" />    <!--in kg--> 
+
+  <!-- Wheels -->
+  <xacro:property name="wheel_diameter" value="${6*SCALE_in_m}"/>
+  <xacro:property name="wheel_radius" value="${wheel_diameter/2}"/>
+  <xacro:property name="wheel_width" value="0.03"/><!--set to tyre width-->
+  <xacro:property name="wheel_mass" value="0.6" /> --> <!-- ???? in kg-->
   <xacro:property name="base_x_origin_to_wheel_origin" value="0.0" />
   <xacro:property name="base_y_origin_to_wheel_origin" value="0.2" />
     <!--<xacro:property name="base_y_origin_to_wheel_origin" value="0.19" />-->
   <xacro:property name="base_z_origin_to_wheel_origin" value="${BASE_PLATE_FROM_BASE_FRAME_Z_OFFSET - wheel_radius}" />
 
+  <!-- caster wheel offsets from base origin -->
+  <xacro:property name="caster_X_offset_from_base_link" value="0.17"/>
+  <!-- caster wheel radius and height -->
+  <!-- caster wheel mass -->
+  <xacro:property name="caster_box_mass" value="0.15" /> <!-- in kg-->
+  <xacro:property name="caster_box_height" value="0.05" /> 
+  <xacro:property name="caster_box_width" value="0.05" /> 
+  <xacro:property name="caster_box_lenght" value="0.05" /> 
+  <xacro:property name="caster_sphere_mass" value="0.15" /> <!-- in kg-->
+  <xacro:property name="caster_sphere_diameter" value="0.05" /> 
+  <xacro:property name="caster_sphere_radius" value="${caster_sphere_diameter/2}" /> 
+
+  <!-- SENSORS -->
+  <!-- Hokuyo Laser scanner -->
+  <xacro:property name="hokuyo_size" value="0.05" />
+    <!-- camera -->
+  <xacro:property name="cameraSize" value="0.05"/>
+  <xacro:property name="cameraMass" value="0.1"/>
 
 
-<!-- URDF file for the Commonplace Robotics Mover4 robot arm -->
-<!-- Version 1.1 from Oct. 04th, 2016. -->
-   
+
+
+
+
+
+ <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin -->
+ <!--<link name="base_footprint"/>-->
   <link name="base_footprint">
     <inertial>
       <mass value="5"/>
@@ -49,11 +120,12 @@
 
   <!-- JOINT BASE_LINK TO BASE_FRAME-->
   <joint name="base_footprint_base_link_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.10"/>
+    <origin rpy="0 0 0" xyz="0 0 ${base_from_base_frame_Z_offset}"/>
     <parent link="base_footprint"/>
     <child link="base_link"/>
- 
+  </joint>
 
+  
 
 <link name="base_link">
 <pose>0 0 0.1 0 0 0</pose>
@@ -308,4 +380,6 @@
     <limit effort="100" velocity="100"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
+
 </robot>
+

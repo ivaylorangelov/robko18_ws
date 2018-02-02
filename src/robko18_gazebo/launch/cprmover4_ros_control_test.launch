@@ -16,14 +16,14 @@
   </include>
 
   <!-- Load the URDF into the ROS Parameter Server -->
-  <param name="cprmover4" command="$(find xacro)/xacro.py '$(find robko18_description)/urdf/cprmover4_standalone_sim.urdf.xacro'"/>
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find robko18_description)/urdf/cprmover4_standalone_sim.urdf.xacro'"/>
 
 <!-- Load joint controller configurations from YAML file to parameter server -->
   <rosparam file="$(find robko18_gazebo)/cfg/cprmover4_gazebo_control.yaml" command="load"/>
 
 <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-	args="-urdf -model cprmover4 -param /cprmover4"/> 
+	args="-urdf -model cprmover4 -param robot_description"/> 
 
 <!-- load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
@@ -34,7 +34,7 @@
 					                        joint3_controller
 					                        Gripper1_controller
 					                        Gripper2_controller
-                                   joint_state_controller"/>
+                                  joint_state_controller"/>
 
 <!-- convert joint states to TF transforms for rviz, etc -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
