@@ -1,0 +1,31 @@
+joint_limits:
+  Gripper1:
+    has_velocity_limits: false
+    max_velocity: 0.001
+    has_acceleration_limits: false
+    max_acceleration: 0
+  Gripper2:
+    has_velocity_limits: false
+    max_velocity: 0.001
+    has_acceleration_limits: false
+    max_acceleration: 0
+  Joint0:
+    has_velocity_limits: false
+    max_velocity: 0.001
+    has_acceleration_limits: false
+    max_acceleration: 0
+  Joint1:
+    has_velocity_limits: false
+    max_velocity: 0.001
+    has_acceleration_limits: false
+    max_acceleration: 0
+  Joint2:
+    has_velocity_limits: false
+    max_velocity: 0.001
+    has_acceleration_limits: false
+    max_acceleration: 0
+  Joint3:
+    has_velocity_limits: false
+    max_velocity: 0.001
+    has_acceleration_limits: false
+    max_acceleration: 0
