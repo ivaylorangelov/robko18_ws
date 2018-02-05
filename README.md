@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 Shift + Alt + F format code VS code
-
+source ~/robko18_ws/devel/setup.bash
 source devel/setup.bash
 
 echo $ROS_PACKAGE_PATH
@@ -36,8 +35,28 @@ roslaunch robko18_navigation amcl_willowgarage.launch
 terminal3:
 roslaunch robko18_description robko18_rviz_amcl.launch
 
+********Start simulated stansalone crpmover4 arm with moveit and gazebo ros controll*****************
+in: ~/robko18_ws/src/robko18_gazebo/launch$ 
+roslaunch cprmover4_ros_control_test.launch
+
+You can move the arm in the simulation manually by publishing to cprmover4 joint controller command topics --- example:
+rostopic list
+rostopic pub -1 /cprmover4/joint3_controller/command std_msgs/Float64 "data: 2"
+
+than start MoveIt:
+in:~/robko18_ws/src/cprmover4_moveit_config/launch$ 
+roslaunch demo.launch
+
+rosrun rqt_graph rqt_graph
+
+So you can e.g. use grep to the output of rostopic list to get the list of available actions, e.g.
+rostopic list | grep -o -P '^.*(?=/feedback)'
+
+*******************************
 show non ASCII symbols in file:
 grep -P '[^\x20-\x7E]' robko18.xacro
+find files in subdirs containing string 
+grep -R "put_string_here" . | cut -d ":" -f 1
 
 ********************************
 My Github skydancerbg no disclosure e-mail: 
@@ -57,6 +76,9 @@ git remote add origin https://github.com/skydancerbg/robko18_ws.git
 git push -u origin master
 clone from: 
 git@github.com:skydancerbg/robko18_ws.git
+*********************
+clone a branch from github:
+git clone -b mybranch --single-branch git://sub.domain.com/repo.git
 *********************
 Zapomnia i ne pita za GithubParola za x sekundi (tuk 30 dni v sekundi)
 git config --global credential.helper cache
@@ -87,16 +109,26 @@ sh name_of_script.sh
 *******install ros control******************
 sudo apt-get install ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control
 sudo apt-get install ros-kinetic-gazebo-ros-control
+
+install 
+sudo apt-get install ros-kinetic-joint-state-controller
+sudo apt-get install ros-kinetic-position-controllers
+sudo apt-get install ros-kinetic-moveit-simple-controller-manager
+sudo apt-get install ros-kinetic-joint-trajectory-controller
 *************************
+
 TURTLEBOT instalation !!!!!!!!!!! http://moorerobots.com/blog/post/3 !!!
 sudo apt-get install ros-kinetic-turtlebot ros-kinetic-turtlebot-apps ros-kinetic-turtlebot-interactions ros-kinetic-turtlebot-simulator ros-kinetic-kobuki-ftdi ros-kinetic-ar-track-alvar-msgs
 
 *********************
 So that I can use urdf_to_graphix to get a visual urdf?????
 ******************************
-=======
-robko18_ws
-test
-test2
-test3
->>>>>>> cb86d4a23d16991462233c88db497ae57eeccd76
+Give execute permission to your script:
+
+chmod +x /path/to/yourscript.sh
+And to run your script:
+
+/path/to/yourscript.sh
+Since . refers to the current directory: if yourscript.sh is in the current directory, you can simplify this to:
+
+./yourscript.sh
