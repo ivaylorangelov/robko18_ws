@@ -1,0 +1,14 @@
+urdf/mybot.gazebo
+urdf/materials.xacro
+urdf/macros.xacro
+
+These three correspond respectively to:
+
+• all the gazebo-specific aspects of our robot
+• definition of the materials used (mostly colors)
+• definitions of some macros for easier description of the robot
+Every file has to contain the robot tag and everything we put in them should be in this tag.
+The first tag will first call the xacro script to convert of xacro description into an actual URDF.
+This URDF is then inserted into a ROS parameter called “robot_description” (this is a standard name 
+used by many ROS tools).
+

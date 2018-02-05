@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<robot name="mover4" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<xacro:macro name="mover4_arm_hardware">
+<link name="base_link">
+<pose>0 0 0.1 0 0 0</pose>
+    <inertial>
+      <mass value="0.5"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+
+    <visual>
+	<origin rpy="0 0 0" xyz="0 0 0.0"/>
+      <geometry>
+	<mesh filename="package://robko18_description/meshes/Joint0.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robko18_description/meshes/Joint0Coll.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+ <link name="geoJoint1">
+     <inertial>
+      <mass value="0.0001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+
+    <visual>
+	<origin rpy="0 0 0" xyz="0 0 0.0"/>
+      <geometry>
+	<mesh filename="package://robko18_description/meshes/Joint1.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robko18_description/meshes/Joint1Coll.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+ <link name="geoJoint2">
+     <inertial>
+      <mass value="0.0001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+
+    <visual>
+	<origin rpy="0 0 0" xyz="0 0 0.0"/>
+      <geometry>
+	<mesh filename="package://robko18_description/meshes/Joint2.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robko18_description/meshes/Joint2Coll.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+ <link name="geoJoint3">
+     <inertial>
+      <mass value="0.0001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+
+    <visual>
+	<origin rpy="0 0 0" xyz="0 0 0.0"/>
+      <geometry>
+	<mesh filename="package://robko18_description/meshes/Joint3.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robko18_description/meshes/Joint3Coll.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+ <link name="geoJoint4">
+     <inertial>
+      <mass value="0.0001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+
+    <visual>
+	<origin rpy="0 0 0" xyz="0 0 0.0"/>
+      <geometry>
+	<mesh filename="package://robko18_description/meshes/Joint4.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robko18_description/meshes/Joint4Coll.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+<link name="gripperBody">
+    <inertial>
+      <mass value="0.0001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+
+    <visual>
+	<origin rpy="0 0 0" xyz="0 0 0.0"/>
+      <geometry>
+	<mesh filename="package://robko18_description/meshes/GripperBase.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robko18_description/meshes/GripperBaseColl.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+<link name="gripperFinger1">
+    <inertial>
+      <mass value="0.0001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+
+    <visual>
+	<origin rpy="0 0 0" xyz="0 0 0.0"/>
+      <geometry>
+	<mesh filename="package://robko18_description/meshes/GripperFinger.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robko18_description/meshes/GripperFingerColl.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+<link name="gripperFinger2">
+    <inertial>
+      <mass value="0.0001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+
+    <visual>
+	<origin rpy="0 0 0" xyz="0 0 0.0"/>
+      <geometry>
+	<mesh filename="package://robko18_description/meshes/GripperFinger.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 0.8"/>
+      </material>
+    </visual>
+ <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robko18_description/meshes/GripperFingerColl.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+
+
+
+
+<joint name="joint0" type="continuous">
+    <axis xyz="0 0 1"/>
+    <parent link="base_link"/>
+    <child link="geoJoint1"/>
+    <origin rpy="0 0 0" xyz="0 0 0.158"/>
+    <limit effort="100" velocity="30"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+<joint name="joint1" type="continuous">
+    <axis xyz="0 1 0"/>
+    <parent link="geoJoint1"/>
+    <child link="geoJoint2"/>
+    <origin rpy="0 0 0" xyz="0 0 0.060"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+<joint name="joint2" type="continuous">
+    <axis xyz="0 1 0"/>
+    <parent link="geoJoint2"/>
+    <child link="geoJoint3"/>
+    <origin rpy="0 0 0" xyz="0 0 0.190"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+ <joint name="joint3" type="continuous">
+    <axis xyz="0 1 0"/>
+    <parent link="geoJoint3"/>
+    <child link="geoJoint4"/>
+    <origin rpy="0 0 0" xyz="0 0 0.220"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+
+<joint name="gripperFixed" type="fixed">
+    <parent link="geoJoint4"/>
+    <child link="gripperBody"/>
+    <origin rpy="0 0 0" xyz="0 0 0.046"/>
+  </joint>
+<joint name="gripper1" type="continuous">
+    <axis xyz="1 0 0"/>
+    <parent link="gripperBody"/>
+    <child link="gripperFinger1"/>
+    <origin rpy="0 0 3.141" xyz="0.0 0.01 0.03"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+<joint name="gripper2" type="continuous">
+    <axis xyz="1 0 0"/>
+    <parent link="gripperBody"/>
+    <child link="gripperFinger2"/>
+     <origin rpy="0 0 0" xyz="0.0 -0.01 0.03"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+</xacro:macro>
+
+
+</robot>

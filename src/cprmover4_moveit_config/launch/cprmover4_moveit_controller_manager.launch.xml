@@ -6,10 +6,30 @@
 
 
 <!-- Set the param that trajectory_execution_manager needs to find the controller plugin -->
-  <rosparam file="$(find cprmover4_moveit_config)/config/controllers.yaml"/>
+  <!--<rosparam file="$(find cprmover4_moveit_config)/config/controllers.yaml"/>
  <arg  name="moveit_controller_manager" default="moveit_simple_controller_manager/MoveItSimpleControllerManager" />
- <param name="/cprmover4/moveit_controller_manager" value="$(arg moveit_controller_manager)"/>
+ <param name="/cprmover4/moveit_controller_manager" value="$(arg moveit_controller_manager)"/>-->
  <!-- load controller_list -->
  <!--<rosparam file="$(find mitsubishi_arm_config)/config/controllers.yaml"/>-->
+ <!--</launch>-->
+
+<!--<rosparam file="$(find cprmover4_moveit_config)/config/controllers.yaml"/>
+<param name="use_controller_manager" value="false"/>
+<param name="trajectory_execution/execution_duration_monitoring" value="false"/>
+<param name="moveit_controller_manager" value="moveit_simple_controller_manager/MoveItSimpleControllerManager"/>-->
+
+<!-- Set the param that trajectory_execution_manager needs to find the controller plugin -->
+	<arg name="moveit_controller_manager" default="moveit_simple_controller_manager/MoveItSimpleControllerManager" />
+	<param name="moveit_controller_manager" value="$(arg moveit_controller_manager)"/>
+
+	<!-- load controller_list -->
+	<arg name="use_controller_manager" default="true" />
+	<param name="use_controller_manager" value="$(arg use_controller_manager)" />
+
+	<!-- Load joint controller configurations from YAML file to parameter server -->
+	<rosparam file="$(find cprmover4_moveit_config)/config/controllers.yaml"/>
+
 </launch>
+
+
 

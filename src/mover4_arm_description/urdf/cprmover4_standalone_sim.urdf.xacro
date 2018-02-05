@@ -408,7 +408,7 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
 <!--test add joint trajectory controller?????-->
 <!--<gazebo>
     <plugin filename="libgazebo_ros_joint_pose_trajectory.so" name="gazebo_ros_joint_pose_trajectory">
-      <robotNamespace>/cprmover4/joint_trajectory</robotNamespace>
+      <robotNamespace>/cprmover4</robotNamespace>
       <serviceName/>
       <topicName/>
       <updateRate/>
@@ -427,9 +427,7 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
       <updateRate>1000.0</updateRate>
     </plugin>
      <gazebo>-->
-
-    <!--<gazebo>
-    <plugin name="gazebo_ros_joint_trajectory" filename="libgazebo_ros_joint_pose_trajectory.so">
+    <!--<plugin name="gazebo_ros_joint_trajectory" filename="libgazebo_ros_joint_pose_trajectory.so">
       <robotNamespace>/cprmover4</robotNamespace>
       <alwaysOn>true</alwaysOn>
       <updateRate>100.0</updateRate>

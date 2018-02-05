@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 
-<robot name="cprmover4" xmlns:xacro="http://www.ros.org/wiki/xacro">
-<!--
+<robot name="robko18" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
   <xacro:include filename="$(find robko18_description)/urdf/robko18.gazebo" />
   <xacro:include filename="$(find robko18_description)/urdf/materials.xacro" />
-  <xacro:include filename="$(find robko18_description)/urdf/macros.xacro" />-->
+  <xacro:include filename="$(find robko18_description)/urdf/macros.xacro" />
   <!-- 3D Sensors -->
   <!--<xacro:include filename="$(find robko18_description)/urdf/kinect.urdf.xacro"/>-->
 
@@ -92,14 +92,20 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
   <xacro:property name="cameraSize" value="0.05"/>
   <xacro:property name="cameraMass" value="0.1"/>
 
+
+
+
+
+
+
  <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin -->
  <!--<link name="base_footprint"/>-->
   <link name="base_footprint">
-    <!--<inertial>
+    <inertial>
       <mass value="5"/>
       <origin xyz="0 0 0"/>
       <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
-    </inertial>-->
+    </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -375,66 +381,5 @@ Dimensions: 17.375 inches (44.13 cm) diameter x .375 inches (.95 cm) thick
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 
-<!-- Transmissions macro    -->
-<xacro:macro name="transmission_block" params="joint_name">
-	  <transmission name="tran_${joint_name}">
-	    <type>transmission_interface/SimpleTransmission</type>
-	    <joint name="${joint_name}">
-	      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-	    </joint>
-	    <actuator name="motor_${joint_name}">
-	      <hardwareInterface>PositionJointInterface</hardwareInterface>
-	      <mechanicalReduction>1</mechanicalReduction>
-	    </actuator>
-	  </transmission>
-   </xacro:macro>
-
-    <!-- Transmissions for ROS Control -->
-
-   <xacro:transmission_block joint_name="Joint0"/>
-   <xacro:transmission_block joint_name="Joint1"/>
-   <xacro:transmission_block joint_name="Joint2"/>
-   <xacro:transmission_block joint_name="Joint3"/>
-   <xacro:transmission_block joint_name="Gripper1"/>
-   <xacro:transmission_block joint_name="Gripper2"/>
-
-     <!-- ros_control plugin -->
-     
-<gazebo>
-  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-    <robotNamespace>/cprmover4</robotNamespace>
-  </plugin>
-</gazebo>
-<!--test add joint trajectory controller?????-->
-<!--<gazebo>
-    <plugin filename="libgazebo_ros_joint_pose_trajectory.so" name="gazebo_ros_joint_pose_trajectory">
-      <robotNamespace>/cprmover4/joint_trajectory</robotNamespace>
-      <serviceName/>
-      <topicName/>
-      <updateRate/>
-    </plugin>
-</gazebo>-->
-   <!-- <gazebo>
-    <plugin filename="libgazebo_ros_joint_pose_trajectory.so" name="joint_trajectory_plugin">
-       <topicName>/cprmover4/joint_trajectory</topicName>
-       <updateRate>1000.0</updateRate>
-        </plugin>
-  </gazebo>-->
-  <!--
-  <gazebo>
-  <plugin filename="libgazebo_ros_joint_pose_trajectory.so" name="joint_trajectory_plugin">
-      <topicName>joint_trajectory</topicName>
-      <updateRate>1000.0</updateRate>
-    </plugin>
-     <gazebo>-->
-
-    <!--<gazebo>
-    <plugin name="gazebo_ros_joint_trajectory" filename="libgazebo_ros_joint_pose_trajectory.so">
-      <robotNamespace>/cprmover4</robotNamespace>
-      <alwaysOn>true</alwaysOn>
-      <updateRate>100.0</updateRate>
-    </plugin>
-  </gazebo>-->
-   
- 
 </robot>
+

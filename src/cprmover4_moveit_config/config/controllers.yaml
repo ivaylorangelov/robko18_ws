@@ -1,5 +1,38 @@
+controller_manager_ns: controller_manager
 controller_list:
-- name: cprmover4/joint_trajectory_controller
-action_ns: "follow_joint_trajectory"
-type: FollowJointTrajectory
-joints: [joint0, joint1, joint2, joint3, Gripper1, Gripper2]
+  - name: cprmover4/joint_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: true
+    joints:
+      - Joint0
+      - Joint1
+      - Joint2
+      - Joint3
+      # - shoulder_pan_joint
+      # - shoulder_pitch_joint
+      # - elbow_roll_joint
+      # - elbow_pitch_joint
+      # - wrist_roll_joint
+      # - wrist_pitch_joint
+      # - gripper_roll_joint
+  - name: cprmover4/gripper_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: true
+    joints:
+      - Gripper1
+      - Gripper2
+      # - finger_joint1
+      # - finger_joint2
+
+      # http://docs.ros.org/hydro/api/pr2_moveit_tutorials/html/planning/src/doc/controller_configuration.html
+  # - name: gripper_controller
+  #  action_ns: cprmover4/gripper_action
+  #  type: GripperCommand
+  #  default: true
+  #  joints:
+  #     - Gripper1
+  #     - Gripper2
+    #  - l_gripper_joint
+    #  - r_gripper_joint
