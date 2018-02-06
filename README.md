@@ -4,51 +4,57 @@ source devel/setup.bash
 
 echo $ROS_PACKAGE_PATH
 
-
 sh run_gazebo.sh
 sh run_rviz.sh
 sh run_teleop.sh 
+
+Teleop:
 roslaunch robko18_navigation robko18_teleop.launch
 
 BUILDING MAP
 Creating the Map 
 Run the following commands below. Use the teleop to move the robot around to create an accurate and thorough map.
+Don't forget to source each terminal you open!!!!!!! source ~/robko18_ws/devel/setup.bash
 In Terminal 1, launch the Gazebo world
-roslaunch robko18_gazebo robko18_world.launch
+roslaunch ~/robko18_ws/src/robko18_gazebo/robko18_world.launch
 In Terminal 2, start map building
-roslaunch robko18_navigation gmapping_demo.launch
+roslaunch ~/robko18_ws/src/robko18_navigation/gmapping_demo.launch
 In Terminal 3, launch rviz and set the following parameters:
-roslaunch robko18_description robko18_rviz_gmapping.launch
+roslaunch ~/robko18_ws/src/robko18_description/robko18_rviz_gmapping.launch
 In Terminal 4, start teleop
-roslaunch robko18_navigation robko18_teleop.launch
+roslaunch ~/robko18_ws/src/robko18_navigation/robko18_teleop.launch
 Saving the Map 
 In Terminal 5, save the map to some file path
-rosrun map_server map_saver -f ~/robko18_ws/src/robko18_navigation/maps/test_map
+rosrun map_server map_saver -f ~/robko18_ws/src/robko18_navigation/maps/choose-a-name_map
 
 USING test_map MAP for Navigation
+Don't forget to source each terminal you open!!!!!!! source ~/robko18_ws/devel/setup.bash
 terminal1:
-roslaunch robko18_gazebo robko18_world.launch or
-roslaunch robko18_gazebo robko18_willowgarage_world.launch
-roslaunch robko18_gazebo robko18_kitchen_dining_world.launch 
+roslaunch ~/robko18_ws/src/robko18_gazebo/robko18_world.launch or
+roslaunch ~/robko18_ws/src/robko18_gazebo/robko18_willowgarage_world.launch
+roslaunch ~/robko18_ws/src/robko18_gazebo/robko18_kitchen_dining_world.launch 
 terminal2:
-roslaunch robko18_navigation amcl_demo.launch  or 
-roslaunch robko18_navigation amcl_willowgarage.launch
-roslaunch robko18_navigation amcl_kitchen_dining.launch
+roslaunch ~/robko18_ws/src/robko18_navigation/amcl_demo.launch  or 
+roslaunch ~/robko18_ws/src/robko18_navigation/amcl_willowgarage.launch
+roslaunch ~/robko18_ws/src/robko18_navigation/amcl_kitchen_dining.launch
 terminal3:
-roslaunch robko18_description robko18_rviz_amcl.launch
+roslaunch ~/robko18_ws/src/robko18_description/robko18_rviz_amcl.launch
 
-********Start simulated stansalone crpmover4 arm with moveit and gazebo ros controll*****************
-in: ~/robko18_ws/src/robko18_gazebo/launch$ 
-roslaunch cprmover4_ros_control_test.launch
+********Start simulated stansalone crpmover4 arm with ros controll*****************
+Don't forget to source each terminal you open!!!!!!! source ~/robko18_ws/devel/setup.bash
+launch:
+~/robko18_ws/src/robko18_gazebo/launch/roslaunch cprmover4_ros_control_test.launch
 
 You can move the arm in the simulation manually by publishing to cprmover4 joint controller command topics --- example:
-rostopic list
+rostopic list:
 rostopic pub -1 /cprmover4/joint3_controller/command std_msgs/Float64 "data: 2"
 
-than start MoveIt:
-in:~/robko18_ws/src/cprmover4_moveit_config/launch$ 
-roslaunch demo.launch
+********Start simulated stansalone crpmover4 arm with moveit and gazebo ros controll*****************
+Don't forget to source each terminal you open!!!!!!! source ~/robko18_ws/devel/setup.bash
+roslaunch ~/robko18_ws/src/robko18_gazebo/launch/cprmover4_sim_for_moveit_bringup.launch
 
+wait for the model and text OMPL in green color to appear below Planning library on Rviz screen and move the robot or plan and execute trajectories
+ 
 rosrun rqt_graph rqt_graph
 
 So you can e.g. use grep to the output of rostopic list to get the list of available actions, e.g.

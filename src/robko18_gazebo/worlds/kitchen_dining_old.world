@@ -95,18 +95,18 @@
         <kinematic>0</kinematic>
         <gravity>1</gravity>
       </link>
-      <pose frame=''>4.07561 0.176299 0 0 -0 0</pose>
+      <pose frame=''>1.12839 -0.214 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>513 936000000</sim_time>
-      <real_time>521 852613960</real_time>
-      <wall_time>1517904028 161610799</wall_time>
-      <iterations>513936</iterations>
+      <sim_time>504 924000000</sim_time>
+      <real_time>510 719038506</real_time>
+      <wall_time>1517835342 178060368</wall_time>
+      <iterations>504924</iterations>
       <model name='Kitchen Dining'>
-        <pose frame=''>1.56894 -0.112425 0 0 -0 0</pose>
+        <pose frame=''>1.12839 -0.214 0 0 0 -0.000159</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>1.56894 -0.112425 0 0 -0 0</pose>
+          <pose frame=''>1.12839 -0.214 0 0 0 -0.000159</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -128,7 +128,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>11.1742 -3.70762 19.7275 0 1.20764 2.58819</pose>
+        <pose frame=''>7.603 1.34337 31.8849 -0 1.4778 2.9162</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
