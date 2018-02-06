@@ -28,10 +28,12 @@ rosrun map_server map_saver -f ~/robko18_ws/src/robko18_navigation/maps/test_map
 USING test_map MAP for Navigation
 terminal1:
 roslaunch robko18_gazebo robko18_world.launch or
-roslaunch robko18_gazebo robko18_willowgarage_world.launch 
+roslaunch robko18_gazebo robko18_willowgarage_world.launch
+roslaunch robko18_gazebo robko18_kitchen_dining_world.launch 
 terminal2:
 roslaunch robko18_navigation amcl_demo.launch  or 
 roslaunch robko18_navigation amcl_willowgarage.launch
+roslaunch robko18_navigation amcl_kitchen_dining.launch
 terminal3:
 roslaunch robko18_description robko18_rviz_amcl.launch
 
