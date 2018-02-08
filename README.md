@@ -80,7 +80,7 @@ first set:
 git config --global user.name "John Doe"
 git config --global user.email johndoe@example.com
 
-git init
+git inita
 git add . or git add --all
 git commit -m 'First commit'
 git remote -v
