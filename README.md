@@ -1,3 +1,7 @@
+install pylinter
+sudo apt-get update
+sudo apt-get install pylint
+
 Shift + Alt + F format code VS code
 source ~/robko18_ws/devel/setup.bash
 source devel/setup.bash
